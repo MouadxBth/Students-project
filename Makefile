@@ -6,7 +6,8 @@ CFLAGS	= -Wall -Werror -Wextra -g -include
 
 DEPS	= students.h
 
-SRCS	= students_utils.c students_printing.c students.c
+SRCS	= students_utils.c students_input.c students_operations.c \
+		students_output.c students.c
 
 OBJS	= $(SRCS:.c=.o)
 
