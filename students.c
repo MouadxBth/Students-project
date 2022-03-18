@@ -61,7 +61,9 @@ int	main(void)
 
 	do {
 		system("@cls||clear");
-		choice = print_menu();
+		print_title();
+		print_options();
+		choice = input_choice(1, 6);
 		handle_choice(choice);
 		if (choice != 6)
 			sleep(1);
