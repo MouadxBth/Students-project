@@ -43,13 +43,17 @@ void	for_each_student(void (*f)(Student *));
 
 Student	*input_student(void);
 
+int		input_choice(int start, int end);
+
 void	print_student(Student *student);
 
 void	print_student_name(Student *student);
 
 void	print_student_average(Student *student);
 
-int		print_menu(void);
+void	print_title(void);
+
+void	print_options(void);
 
 void	search_for_student(void);
 

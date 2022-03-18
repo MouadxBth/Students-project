@@ -83,3 +83,33 @@ Student *input_student(void)
     
 	return (result);
 }
+
+int		input_choice(int start, int end)
+{
+	int     choice;
+
+    do {      
+        scanf("%d", &choice);
+        if (choice < start || choice > end)
+        	printf("Invalid choice!\n");
+    } while (choice < start || choice > end);
+    return (choice);
+}
+
+void    search_for_student(void)
+{
+	int	id;
+	Student	*result;
+
+	do {
+		printf("Enter student id:\n");
+		scanf("%d%*c", &id);
+		if (id < 0)
+			printf("Invalid id!\n\n");
+	} while (id < 0);
+	result = find_student(id);
+	if (result)
+		print_student(result);
+	else
+		printf("Student not found!\n\n");
+}
