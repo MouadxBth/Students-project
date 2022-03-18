@@ -25,13 +25,23 @@ typedef struct s_student {
 
 } Student;
 
+Student **get_students();
+
 Student	*new_student(int id, int modules);
 
 void	free_student(Student *student);
 
-Student	*input_student(void);
+void	add_student(int *count, Student *student);
 
-void	iterate_students(Student **array, void (*f)(Student *));
+void	delete_student(int id);
+
+int		find_student_index(int id);
+
+Student *find_student(int id);
+
+void	for_each_student(void (*f)(Student *));
+
+Student	*input_student(void);
 
 void	print_student(Student *student);
 
@@ -39,8 +49,10 @@ void	print_student_name(Student *student);
 
 void	print_student_average(Student *student);
 
-int	print_menu(void);
+int		print_menu(void);
 
-void	bubble_sort_students(Student **array);
+void	search_for_student(void);
+
+void merge_sort_students(int start, int end);
 
 #endif
