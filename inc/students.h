@@ -57,6 +57,6 @@ void	print_options(void);
 
 void	search_for_student(void);
 
-void merge_sort_students(int start, int end);
+void	merge_sort_students(int start, int end);
 
 #endif

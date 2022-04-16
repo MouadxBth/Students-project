@@ -1,28 +1,63 @@
-NAME	= Students
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mbouthai <mbouthai@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/03/20 15:36:27 by mbouthai          #+#    #+#              #
+#    Updated: 2022/04/16 17:48:29 by mbouthai         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC	= gcc
+MAKE_DIR= build/
 
-CFLAGS	= -Wall -Werror -Wextra -g -include
+include $(MAKE_DIR)Settings.mk
 
-DEPS	= students.h
+include $(MAKE_DIR)Compilation.mk
 
-SRCS	= students_utils.c students_input.c students_operations.c \
-		students_output.c students.c
+CFLAGS	+= -I$(INC_DIR)
 
-OBJS	= $(SRCS:.c=.o)
+all: $(NAME)
 
-all: $(OBJS)
-	$(CC) -o $(NAME) $(OBJS)
+$(NAME): $(OBJS) 
+	$(CC) $(CFLAGS) -o $@ $^
 
-%.o: %.c $(DEPS)
-	$(CC) $(CFLAGS) $(DEPS) -c $< -o $@
+$(OBJ_DIR):
+	@mkdir -p $@
 
-clean:
-	rm -f $(OBJS)
+$(OBJS): | $(OBJ_DIR)
+
+$(OBJS): $(OBJ_DIR)%.o: $(SRC_DIR)%
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(DEP_DIR):
+	@mkdir -p $@
+
+$(DEPS): | $(DEP_DIR)
+
+$(DEPS): $(DEP_DIR)%.d: $(SRC_DIR)%
+	$(CC) $(CFLAGS) -MM -MF $@ -MT "$(OBJ_DIR)*.o $@" $<
+
+cleanobj:
+	$(RM) $(wildcard $(OBJS))
+
+cleanobjdir: cleanobj
+	$(RMDIR) $(OBJ_DIR)
+
+cleandep:
+	$(RM) $(wildcard $(DEPS))
+
+cleandepdir: cleandep
+	$(RMDIR) $(DEP_DIR)
+
+clean: cleanobjdir cleandepdir
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+-include $(DEPS)
+
+.PHONY = all cleanobj cleanobjdir cleandep cleandepdir clean fclean
